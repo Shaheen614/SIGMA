@@ -1,7 +1,7 @@
 import numpy as np
 from torch.utils.data import DataLoader
 
-from datasets.timeseries_dataset import TimeSeriesDataset
+from data.timeseries_dataset import TimeSeriesDataset
 from models.lstm_model import LSTMForecast
 from train import train_model
 from evaluate import evaluate_model
