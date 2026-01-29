@@ -1,7 +1,10 @@
 import torch.nn as nn
 
 class LSTMForecast(nn.Module):
-    #Simple LSTM for time-series forecasting
+    """
+    Simple LSTM for time-series forecasting
+    """
+
     def __init__(self, input_size=1, hidden_size=64, num_layers=1):
         super().__init__()
 
@@ -13,17 +16,19 @@ class LSTMForecast(nn.Module):
             batch_first=True
         )
 
-        #Fully connected 
+        #fully connected 
         self.fc = nn.Linear(hidden_size, 1)
 
     def forward(self, x):
-        #Required shape = x: (batch, sequence_length, input_size)
+        """
+        x shape: (batch, sequence_length, input_size)
+        """
         out, _ = self.lstm(x)
 
-        #Take output from last timestep
+        # Take output from last timestep
         out = out[:, -1, :]
 
-        #Final prediction
+        #final prediction
         out = self.fc(out)
 
-        return out.squeeze()
+        return out.squeeze(-1)
